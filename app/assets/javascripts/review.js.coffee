@@ -13,21 +13,25 @@ class ReviewCtrl
         constructor: ($scope, Review, $cookieStore) ->
 
                 $scope.vote = $cookieStore.get COOKIE_KEY
-                if $scope.vote
-                        Review.summary {}, (response) ->
-                                $scope.percentages = response.percentages
+                $scope.skipVoting() if $scope.vote
 
                 option1 =
-                        description: "There is not a washer and dryer on site. The listing indicated that there was a washer and dryer on site.",
+                        description: "There is not a washer and dryer on site. The listing indicated that there was a washer and dryer on site. The listing was untruthful.",
                         tag: 'falsy'
                 option2 =
-                        description: "There is not a washer and dryer on site. The listing did not indicate that there was a washer and dryer on site.",
+                        description: "There is not a washer and dryer on site. The listing did not indicate that there was a washer and dryer on site. The listing was truthful.",
                         tag: 'truthy'
 
                 $scope.options = []
                 $scope.options.push option1
                 $scope.options.push option2
+                # Make the choices appear in different order to really make sure no one is motivated more by laziness
                 $scope.options = $scope.options.reverse() if Math.random() > 0.5
+
+                $scope.skipVoting = () ->
+                        Review.summary {}, (response) ->
+                                $scope.vote = true
+                                $scope.percentages = response.percentages
 
                 $scope.doVote = (choice) ->
                         unless $scope.vote
