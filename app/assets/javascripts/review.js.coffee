@@ -12,6 +12,11 @@ COOKIE_KEY = 'myVoteAirbnbInterpretation'
 class ReviewCtrl
         constructor: ($scope, Review, $cookieStore) ->
 
+                $scope.skipVoting = () ->
+                        Review.summary {}, (response) ->
+                                $scope.vote = true
+                                $scope.percentages = response.percentages
+
                 $scope.vote = $cookieStore.get COOKIE_KEY
                 $scope.skipVoting() if $scope.vote
 
@@ -28,10 +33,6 @@ class ReviewCtrl
                 # Make the choices appear in different order to really make sure no one is motivated more by laziness
                 $scope.options = $scope.options.reverse() if Math.random() > 0.5
 
-                $scope.skipVoting = () ->
-                        Review.summary {}, (response) ->
-                                $scope.vote = true
-                                $scope.percentages = response.percentages
 
                 $scope.doVote = (choice) ->
                         unless $scope.vote
@@ -46,5 +47,5 @@ class ReviewCtrl
                                 console.log "You already voted..."
 
 
-
+ReviewCtrl.$inject = [ '$scope', 'Review', '$cookieStore' ]
 @ReviewCtrl = ReviewCtrl
