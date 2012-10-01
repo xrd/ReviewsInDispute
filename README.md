@@ -10,13 +10,14 @@ To use it:
 * Setup a rails server with this repo
 * Configure the resource route in app/assets/javascripts/review.js.coffee by changing the BASE_URL variable
 * Customize the options inside the controller
+# If running in production, run rake assets:precompile
 
 In other words, copy this into a Wordpress post (in HTML mode, not visual mode):
 
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-resource.min.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-cookies.min.js"></script>
-    <script type="text/javascript" src="//reviews.myhost.com/assets/review.js"></script>
+    <script type="text/javascript" src="//reviews.myhost.com/assets/application.js"></script>
     <div ng-controller="ReviewCtrl" ng-app="reviews">
     
     Don't let me convince you which way to vote.
@@ -25,7 +26,7 @@ In other words, copy this into a Wordpress post (in HTML mode, not visual mode):
     <button ng-click="doVote(option)" ng-repeat="option in options">{{option.description}}</button>
     
     <div ng-show="vote">
-    Now you've voted!
+    Now you've voted! Here is my expert analysis.
     
     <strong>
     {{(percentages.truthy/percentages.total)*100|number:0}}% voted for the truthy choice. 
