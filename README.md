@@ -27,7 +27,10 @@ In other words, copy this into Wordpress:
     <div ng-show="vote">
     Now you've voted!
     
-    <strong>{{(percentages.truthy/percentages.total)*100|number:0}}% voted for the truthy choice. {{(percentages.falsy/percentages.total)*100|number:0}}% chose the falsy item.</strong>
+    <strong>
+    {{(percentages.truthy/percentages.total)*100|number:0}}% voted for the truthy choice. 
+    {{(percentages.falsy/percentages.total)*100|number:0}}% chose the falsy item.
+    </strong>
     
     </div>
     
