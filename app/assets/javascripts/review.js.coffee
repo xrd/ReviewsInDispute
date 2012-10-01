@@ -14,7 +14,7 @@ class ReviewCtrl
 
                 $scope.skipVoting = () ->
                         Review.summary {}, (response) ->
-                                $scope.vote = true
+                                $scope.vote ||= true
                                 $scope.percentages = response.percentages
 
                 $scope.vote = $cookieStore.get COOKIE_KEY
