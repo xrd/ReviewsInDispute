@@ -1,13 +1,19 @@
 mod = angular.module 'reviews', [ 'ngResource', 'ngCookies' ]
 mod.factory 'Review', [ '$resource', ($resource) ->
-        $resource 'http://reviews.vivooh.com/reviews/:id/:action', {},
-                vote: { method: 'JSONP', params: { action: 'vote' } }
+        $resource 'http://reviews.vivooh.com/reviews/:id/:action', {alt: 'json', callback: 'JSON_CALLBACK'},
+                vote: { method: 'JSONP', params: { action: 'vote' } },
+                summary: { method: 'JSONP', params: { action: 'summary' } }
         ]
+
+COOKIE_KEY = 'myVoteAirbnbInterpretation'
 
 class ReviewCtrl
         constructor: ($scope, Review, $cookieStore) ->
 
-                $scope.voted = $cookieStore.get('voted')
+                $scope.vote = $cookieStore.get COOKIE_KEY
+                if $scope.vote
+                        Review.summary {}, (response) ->
+                                $scope.percentages = response.percentages
 
                 option1 =
                         description: "There is not a washer and dryer on site. The listing indicated that there was a washer and dryer on site.",
@@ -21,14 +27,15 @@ class ReviewCtrl
                 $scope.options.push option2
                 $scope.options = $scope.options.reverse() if Math.random() > 0.5
 
-                $scope.vote = (choice) ->
-                        unless $scope.voted
+                $scope.doVote = (choice) ->
+                        unless $scope.vote
                                 $scope.voting = true
                                 Review.vote { choice: choice.tag }, (response) ->
+                                        $scope.vote = choice.tag
                                         $scope.voted = true
                                         $scope.voting = false
                                         $scope.percentages = response.percentages
-                                        $cookieStore.put('voted', true )
+                                        $cookieStore.put( COOKIE_KEY, $scope.vote )
                         else
                                 console.log "You already voted..."
 
