@@ -11,7 +11,7 @@ To use it:
 * Configure the resource route in app/assets/javascripts/review.js.coffee by changing the BASE_URL variable
 * Customize the options inside the controller
 
-In other words, copy this into Wordpress:
+In other words, copy this into a Wordpress post (in HTML mode, not visual mode):
 
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-resource.min.js"></script>
@@ -19,7 +19,7 @@ In other words, copy this into Wordpress:
     <script type="text/javascript" src="//reviews.myhost.com/assets/review.js"></script>
     <div ng-controller="ReviewCtrl" ng-app="reviews">
     
-    Talk about something before voting...
+    Don't let me convince you which way to vote.
     
     Your choices:
     <button ng-click="doVote(option)" ng-repeat="option in options">{{option.description}}</button>
