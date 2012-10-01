@@ -1,6 +1,8 @@
+BASE_URL = 'http://reviews.vivooh.com'
+
 mod = angular.module 'reviews', [ 'ngResource', 'ngCookies' ]
 mod.factory 'Review', [ '$resource', ($resource) ->
-        $resource 'http://reviews.vivooh.com/reviews/:id/:action', {alt: 'json', callback: 'JSON_CALLBACK'},
+        $resource "#{BASE_URL}/reviews/:id/:action", {alt: 'json', callback: 'JSON_CALLBACK'},
                 vote: { method: 'JSONP', params: { action: 'vote' } },
                 summary: { method: 'JSONP', params: { action: 'summary' } }
         ]
