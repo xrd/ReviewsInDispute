@@ -11,9 +11,7 @@ To use it:
 * Configure the resource route in app/assets/javascripts/review.js.coffee by changing the BASE_URL variable
 * Customize the options inside the controller
 
-Basically, do this:
-
-* Copy into your Wordpress file:
+In other words, copy this into Wordpress:
 
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-resource.min.js"></script>
